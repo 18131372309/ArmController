@@ -31,6 +31,23 @@ public class ShowView : MonoBehaviour
     private GameObject weldingConfigSetFinishButton;
     private GameObject pauseWeldButton;
     private GameObject endWeldButton;
+
+    private GameObject adminConfigPanel;
+    private GameObject noticeText;
+    private GameObject configDropDown;
+    private GameObject closeAdminConfigButton;
+    private GameObject lastButton;
+    private GameObject nextButton;
+    private int currentAdminConfigPanelIndex = 0;
+    private GameObject baseButton;
+    private GameObject messageButton;
+    private GameObject weldButton;
+    private GameObject placeButton;
+    private GameObject basePanel;
+    private GameObject messagePanel;
+    private GameObject weldPanel;
+    private GameObject placePanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +90,35 @@ public class ShowView : MonoBehaviour
         admin_ok_Button.GetComponent<Button>().onClick.AddListener(CheckAdmin);
         //注册事件后panel隐藏
         gameAdminPanel.SetActive(false);
+
+        //管理员配置界面
+        adminConfigPanel = canvas.Find("GameAdmin/AdminConfig").gameObject;
+        noticeText = canvas.Find("GameAdmin/AdminConfig/NoticeText").gameObject;
+        configDropDown = canvas.Find("GameAdmin/AdminConfig/ConfigDropdown").gameObject;
+        configDropDown.GetComponent<Dropdown>().onValueChanged.AddListener((index) =>
+        {
+            noticeText.GetComponent<Text>().text = index == 0 ? "机器人配置" : "相机配置";
+        });
+        closeAdminConfigButton = canvas.Find("GameAdmin/AdminConfig/RobotConfigPanel/CloseButton").gameObject;
+        closeAdminConfigButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            adminConfigPanel.SetActive(false);
+        });
+        lastButton = canvas.Find("GameAdmin/AdminConfig/RobotConfigPanel/LastButton").gameObject;
+        currentAdminConfigPanelIndex = 0;
+        lastButton.GetComponent<Button>().onClick.AddListener(LastAdminConfigStep);
+        lastButton.SetActive(false);
+        nextButton = canvas.Find("GameAdmin/AdminConfig/RobotConfigPanel/NextButton").gameObject;
+        nextButton.GetComponent<Button>().onClick.AddListener(NextAdminConfigStep);
+        basePanel = canvas.Find("GameAdmin/AdminConfig/RobotConfigPanel/BasePanel").gameObject;
+        messagePanel = canvas.Find("GameAdmin/AdminConfig/RobotConfigPanel/MessagePanel").gameObject;
+        weldPanel = canvas.Find("GameAdmin/AdminConfig/RobotConfigPanel/weldCPanel").gameObject;
+        placePanel = canvas.Find("GameAdmin/AdminConfig/RobotConfigPanel/PlacePanel").gameObject;
+
+        messagePanel.SetActive(false);
+        weldPanel.SetActive(false);
+        placePanel.SetActive(false);
+        adminConfigPanel.SetActive(false);
 
         //新建项目按钮
         newProjectBtn = canvas.transform.Find("GameInitUI/BeginUse/NewProjectButton").GetComponent<Button>();
@@ -156,6 +202,8 @@ public class ShowView : MonoBehaviour
 
         videoTexture = canvas.transform.Find("GameModules/videoTexture").gameObject;
         videoTexture.SetActive(false);
+
+
     }
 
 
@@ -196,7 +244,10 @@ public class ShowView : MonoBehaviour
     {
         if (true)
         {
+
             gameAdminPanel.SetActive(false);
+            //TODO:是否是管理员
+            adminConfigPanel.SetActive(true);
         }
         else
         {
@@ -249,5 +300,84 @@ public class ShowView : MonoBehaviour
     {
         videoTexture.SetActive(false);
         weldingControl.SetActive(false);
+    }
+
+    //管理员配置，上一步
+    public void LastAdminConfigStep()
+    {
+        switch (currentAdminConfigPanelIndex)
+        {
+            case 0:
+                break;
+            case 1:
+                currentAdminConfigPanelIndex--;
+                basePanel.SetActive(true);
+                messagePanel.SetActive(false);
+                weldPanel.SetActive(false);
+                placePanel.SetActive(false);
+                lastButton.SetActive(false);
+                break;
+            case 2:
+                currentAdminConfigPanelIndex--;
+                basePanel.SetActive(false);
+                messagePanel.SetActive(true);
+                weldPanel.SetActive(false);
+                placePanel.SetActive(false);
+                break;
+            case 3:
+                currentAdminConfigPanelIndex--;
+                nextButton.GetComponentInChildren<Text>().text = "下一步";
+                basePanel.SetActive(false);
+                messagePanel.SetActive(false);
+                weldPanel.SetActive(true);
+                placePanel.SetActive(false);
+                break;
+            default:
+                break;
+        }
+    }
+    //管理员配置，下一步
+    public void NextAdminConfigStep()
+    {
+        switch (currentAdminConfigPanelIndex)
+        {
+            case 0:
+                currentAdminConfigPanelIndex++;
+                lastButton.SetActive(true);
+                basePanel.SetActive(false);
+                messagePanel.SetActive(true);
+                weldPanel.SetActive(false);
+                placePanel.SetActive(false);
+
+                break;
+            case 1:
+                currentAdminConfigPanelIndex++;
+                basePanel.SetActive(false);
+                messagePanel.SetActive(false);
+                weldPanel.SetActive(true);
+                placePanel.SetActive(false);
+                break;
+            case 2:
+                currentAdminConfigPanelIndex++;
+
+                nextButton.GetComponentInChildren<Text>().text = "完成";
+                basePanel.SetActive(false);
+                messagePanel.SetActive(false);
+                weldPanel.SetActive(false);
+                placePanel.SetActive(true);
+                break;
+            case 3:
+                currentAdminConfigPanelIndex = 0;
+                lastButton.SetActive(false);
+                nextButton.GetComponentInChildren<Text>().text = "下一步";
+                basePanel.SetActive(true);
+                messagePanel.SetActive(false);
+                weldPanel.SetActive(false);
+                placePanel.SetActive(false);
+                adminConfigPanel.SetActive(false);
+                break;
+            default:
+                break;
+        }
     }
 }
