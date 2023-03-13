@@ -15,6 +15,7 @@ public class EnterGame : MonoBehaviour
         {
             Invoke("HideAni", 2f);
         }
+
     }
 
     void HideAni()

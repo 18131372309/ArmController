@@ -38,6 +38,12 @@ public class ShowView : MonoBehaviour
     private GameObject closeAdminConfigButton;
     private GameObject lastButton;
     private GameObject nextButton;
+    private GameObject checkCamMesButton;
+    private GameObject nextButton_cam;
+    private GameObject lastButton_cam;
+    private GameObject takePicButton;
+    private RawImage rawImageCamPic;
+
     private int currentAdminConfigPanelIndex = 0;
     private GameObject baseButton;
     private GameObject messageButton;
@@ -47,7 +53,11 @@ public class ShowView : MonoBehaviour
     private GameObject messagePanel;
     private GameObject weldPanel;
     private GameObject placePanel;
+    private GameObject basePanel_cam;
+    private GameObject handEyePanel_cam;
 
+    private GameObject robotConfigPanel;
+    private GameObject cameraConfigPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -94,12 +104,28 @@ public class ShowView : MonoBehaviour
         //管理员配置界面
         adminConfigPanel = canvas.Find("GameAdmin/AdminConfig").gameObject;
         noticeText = canvas.Find("GameAdmin/AdminConfig/NoticeText").gameObject;
+        robotConfigPanel = canvas.Find("GameAdmin/AdminConfig/RobotConfigPanel").gameObject;
+        cameraConfigPanel = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel").gameObject;
+        robotConfigPanel.SetActive(true);
+        cameraConfigPanel.SetActive(false);
         configDropDown = canvas.Find("GameAdmin/AdminConfig/ConfigDropdown").gameObject;
         configDropDown.GetComponent<Dropdown>().onValueChanged.AddListener((index) =>
         {
             noticeText.GetComponent<Text>().text = index == 0 ? "机器人配置" : "相机配置";
+
+            if (index == 0)
+            {
+                robotConfigPanel.SetActive(true);
+                cameraConfigPanel.SetActive(false);
+            }
+            else
+            {
+                robotConfigPanel.SetActive(false);
+                cameraConfigPanel.SetActive(true);
+            }
         });
-        closeAdminConfigButton = canvas.Find("GameAdmin/AdminConfig/RobotConfigPanel/CloseButton").gameObject;
+
+        closeAdminConfigButton = canvas.Find("GameAdmin/AdminConfig/CloseButton").gameObject;
         closeAdminConfigButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             adminConfigPanel.SetActive(false);
@@ -119,6 +145,29 @@ public class ShowView : MonoBehaviour
         weldPanel.SetActive(false);
         placePanel.SetActive(false);
         adminConfigPanel.SetActive(false);
+
+        basePanel_cam = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/BasePanel").gameObject;
+        handEyePanel_cam = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel").gameObject;
+        checkCamMesButton = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/BasePanel/checkButton").gameObject;
+        checkCamMesButton.GetComponent<Button>().onClick.AddListener(CheckCamMessage);
+        nextButton_cam = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/BasePanel/NextButton").gameObject;
+        lastButton_cam = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel/lastButton").gameObject;
+        takePicButton = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel/takePicButton").gameObject;
+        rawImageCamPic = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel/RawImage").GetComponent<RawImage>();
+        basePanel_cam.SetActive(true);
+        handEyePanel_cam.SetActive(false);
+        nextButton_cam.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            basePanel_cam.SetActive(false);
+            handEyePanel_cam.SetActive(true);
+        });
+
+        lastButton_cam.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            basePanel_cam.SetActive(true);
+            handEyePanel_cam.SetActive(false);
+        });
+        takePicButton.GetComponent<Button>().onClick.AddListener(TakeCamPicture);
 
         //新建项目按钮
         newProjectBtn = canvas.transform.Find("GameInitUI/BeginUse/NewProjectButton").GetComponent<Button>();
@@ -379,5 +428,20 @@ public class ShowView : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void CheckCamMessage()
+    {
+        Debug.Log("检测相机通信");
+    }
+
+    public void TakeCamPicture()
+    {
+        Debug.Log("拍照");
+        string camTexture_url = "file:///" + Application.dataPath + "/Config/camTexture.png";
+        ConfigManager.Instance.GetTextureOnLine(camTexture_url, (texture) =>
+        {
+            rawImageCamPic.texture = texture;
+        });
     }
 }
