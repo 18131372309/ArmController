@@ -58,6 +58,7 @@ public class ShowView : MonoBehaviour
 
     private GameObject robotConfigPanel;
     private GameObject cameraConfigPanel;
+    private GameObject frontBackToggle;
     // Start is called before the first frame update
     void Start()
     {
@@ -176,6 +177,21 @@ public class ShowView : MonoBehaviour
         //mm = Camera.main.gameObject.GetComponent<MoveCameraByMouse>();
         //mm.enabled = false;
 
+        //模型翻转
+        frontBackToggle = canvas.transform.Find("GameModules/FrontBackToggle").gameObject;
+        frontBackToggle.GetComponent<Toggle>().onValueChanged.AddListener((isOn) =>
+        {
+            UIManager.Instance.FlipModel(isOn);
+            if (isOn)
+            {
+                frontBackToggle.GetComponentInChildren<Text>().text = "正面";
+            }
+            else
+            {
+                frontBackToggle.GetComponentInChildren<Text>().text = "反面";
+            }
+        });
+        frontBackToggle.SetActive(false);
         //视角调整
         viewDropDowm = canvas.transform.Find("GameModules/ViewDropdown").gameObject;
         viewDropDowm.SetActive(false);
@@ -253,6 +269,7 @@ public class ShowView : MonoBehaviour
         videoTexture.SetActive(false);
 
 
+        UIManager.Instance.ProjectInfoInit();
     }
 
 
@@ -282,6 +299,7 @@ public class ShowView : MonoBehaviour
         UIManager.Instance.InitCameraMCBM(true);
 
         gameAdminBtn.SetActive(true);
+        frontBackToggle.SetActive(true);
         viewDropDowm.SetActive(true);
         virtualButton.SetActive(true);
         weldingButton.SetActive(true);

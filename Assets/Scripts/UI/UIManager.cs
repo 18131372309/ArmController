@@ -37,6 +37,11 @@ public class UIManager
     }
     */
 
+    public void ProjectInfoInit()
+    {
+        ProjectInfo.Instance.SetProjectInfo();
+    }
+
     public void InitCameraMCBM(bool state)
     {
         mcbm.enabled = state;
@@ -60,11 +65,19 @@ public class UIManager
             case 2:
                 mcbm.top();
                 break;
+            //case 3:
+            //    mcbm.FlipModel();
+            //    break;
             default:
-                mcbm.front();
+                // mcbm.front();
                 break;
         }
 
+    }
+
+    public void FlipModel(bool isFront)
+    {
+        mcbm.FlipModel(isFront);
     }
 
 }

@@ -9,7 +9,7 @@ public class MoveCameraByMouse : MonoBehaviour
     public Transform target;
 
     // 设置旋转角度
-    public float x = 0f, y = 0f, z = 0f;
+    public float x = 20f, y = 20f, z = 20f;
     public bool xFlag = false, yFlag = false;
 
     // 旋转速度值
@@ -27,6 +27,9 @@ public class MoveCameraByMouse : MonoBehaviour
     // 阻尼设置
     public bool needDamping = true;
     public float damping = 3f;
+
+    //正反序列
+    public int TargetDir = 0;
 
     // 改变中心目标物体
     public void SetTarget(GameObject go)
@@ -119,14 +122,14 @@ public class MoveCameraByMouse : MonoBehaviour
     public void pers()
     {
         this.x = 0f;
-        this.y = 0f;
+        this.y = 20f;
     }
 
     // 正视图
     public void front()
     {
         this.x = 0f;
-        this.y = 0f;
+        this.y = 20f;
     }
 
     // 后视图
@@ -140,7 +143,7 @@ public class MoveCameraByMouse : MonoBehaviour
     public void left()
     {
         this.x = 90f;
-        this.y = 0f;
+        this.y = 20f;
     }
 
     // 右视图
@@ -162,6 +165,22 @@ public class MoveCameraByMouse : MonoBehaviour
     {
         this.x = 0f;
         this.y = -90f;
+    }
+
+    //翻转模型
+    public void FlipModel(bool isFront)
+    {
+        if (isFront)
+        {
+            target.localEulerAngles = new Vector3(0, -90, 0);
+            // TargetDir = 1;
+        }
+        else
+        {
+            target.localEulerAngles = new Vector3(180, -90, 0);
+            //   TargetDir = 0;
+        }
+
     }
 
 }

@@ -10,15 +10,15 @@ public class ConfigManager : MonoBehaviour
     public static ConfigManager Instance;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
-        string projectInfo_url = "file:///" + Application.dataPath + "/Config/ProjectInfo.txt";
+        //string projectInfo_url = "file:///" + Application.dataPath + "/Config/ProjectInfo.txt";
         // StartCoroutine(GetConfigInfoText(projectInfo_url));
-        string camTexture_url = "file:///" + Application.dataPath + "/Config/camTexture.png";
+        //string camTexture_url = "file:///" + Application.dataPath + "/Config/camTexture.png";
     }
 
     public void GetStringOnLine(string url, UnityAction<string> callback)
@@ -41,13 +41,13 @@ public class ConfigManager : MonoBehaviour
     IEnumerator GetConfigInfoText(string url, UnityAction<string> callback)
     {
 
-        Debug.Log(url);
+        //Debug.Log(url);
         UnityWebRequest webRequest = UnityWebRequest.Get(url);
         yield return webRequest.SendWebRequest();
         if (webRequest.result == UnityWebRequest.Result.Success)
         {
             string result = webRequest.downloadHandler.text;
-            Debug.Log("GetProjectInfo:" + result);
+            //Debug.Log("GetProjectInfo:" + result);
             callback(result);
         }
         else
