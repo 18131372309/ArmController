@@ -1,0 +1,125 @@
+[{
+		"weldInfo": [{
+				"belong": "Ö±º¸·ì"
+			},
+			{
+				"type": "½Çº¸·ì"
+			},
+			{
+				"name": "Ö±º¸·ì1"
+			},
+			{
+				"description": [{
+						"startPosX": 100
+					}, {
+						"startPosY": 0
+					}, {
+						"startPosZ": 100
+					},
+					{
+						"endPosX": 100
+					},
+					{
+						"endPosY": 0
+					},
+					{
+						"endPosZ": 200
+					}
+				]
+			}
+		]
+	},
+	{
+		"weldInfo": [{
+				"belong": "Ô²»¡º¸·ì"
+			},
+			{
+				"type": "Ô²»¡º¸·ì"
+			},
+			{
+				"name": "Ô²»¡º¸·ì1"
+			},
+			{
+				"description": [{
+						"startPosX": 100
+					}, {
+						"startPosY": 0
+					}, {
+						"startPosZ": 100
+					},
+					{
+						"endPosX": 100
+					},
+					{
+						"endPosY": 0
+					},
+					{
+						"endPosZ": 200
+					}
+				]
+			}
+		]
+	},
+	{
+		"weldInfo": [{
+				"belong": "Ö±º¸·ì"
+			},
+			{
+				"type": "½Çº¸·ì"
+			},
+			{
+				"name": "Ö±º¸·ì2"
+			},
+			{
+				"description": [{
+						"startPosX": 100
+					}, {
+						"startPosY": 0
+					}, {
+						"startPosZ": 100
+					},
+					{
+						"endPosX": 100
+					},
+					{
+						"endPosY": 0
+					},
+					{
+						"endPosZ": 200
+					}
+				]
+			}
+		]
+	},
+	{
+		"weldInfo": [{
+				"belong": "Ô²»¡º¸·ì"
+			},
+			{
+				"type": "Ô²»¡º¸·ì"
+			},
+			{
+				"name": "Ô²»¡º¸·ì2"
+			},
+			{
+				"description": [{
+						"startPosX": 100
+					}, {
+						"startPosY": 0
+					}, {
+						"startPosZ": 100
+					},
+					{
+						"endPosX": 100
+					},
+					{
+						"endPosY": 0
+					},
+					{
+						"endPosZ": 200
+					}
+				]
+			}
+		]
+	}
+]

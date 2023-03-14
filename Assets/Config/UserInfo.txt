@@ -1,0 +1,23 @@
+[{
+		"userInfo": [{
+			"name": "liming"
+		}, {
+			"type": "common"
+		}, {
+			"account": "liming123"
+		}, {
+			"password": "12345"
+		}]
+	},
+	{
+		"userInfo": [{
+			"name": "xiaohong"
+		}, {
+			"type": "admin"
+		}, {
+			"account": "xiaohong123"
+		}, {
+			"password": "54321"
+		}]
+	}
+]
