@@ -172,12 +172,12 @@ public class MoveCameraByMouse : MonoBehaviour
     {
         if (isFront)
         {
-            target.localEulerAngles = new Vector3(0, -90, 0);
+            target.localEulerAngles = new Vector3(0, 0, 0);
             // TargetDir = 1;
         }
         else
         {
-            target.localEulerAngles = new Vector3(180, -90, 0);
+            target.localEulerAngles = new Vector3(180, 0, 0);
             //   TargetDir = 0;
         }
 

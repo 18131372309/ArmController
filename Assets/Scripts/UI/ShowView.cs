@@ -43,6 +43,9 @@ public class ShowView : MonoBehaviour
     private GameObject lastButton_cam;
     private GameObject takePicButton;
     private RawImage rawImageCamPic;
+    private RawImage rawImageCamPic_1;
+    private RawImage rawImageCamPic_2;
+    private RawImage rawImageCamPic_3;
 
     private int currentAdminConfigPanelIndex = 0;
     private GameObject baseButton;
@@ -155,6 +158,9 @@ public class ShowView : MonoBehaviour
         lastButton_cam = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel/lastButton").gameObject;
         takePicButton = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel/takePicButton").gameObject;
         rawImageCamPic = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel/RawImage").GetComponent<RawImage>();
+        rawImageCamPic_1 = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel/RawImage_1").GetComponent<RawImage>();
+        rawImageCamPic_2 = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel/RawImage_2").GetComponent<RawImage>();
+        rawImageCamPic_3 = canvas.Find("GameAdmin/AdminConfig/CameraConfigPanel/HandEyePanel/RawImage_3").GetComponent<RawImage>();
         basePanel_cam.SetActive(true);
         handEyePanel_cam.SetActive(false);
         nextButton_cam.GetComponent<Button>().onClick.AddListener(() =>
@@ -246,8 +252,10 @@ public class ShowView : MonoBehaviour
         {
             if (isOn)
             {
+                UIManager.Instance.WeldInfoInit();
                 weldingConfigPanel.SetActive(true);
                 weldingConfigUI.SetActive(false);
+
             }
             else
             {
@@ -460,6 +468,22 @@ public class ShowView : MonoBehaviour
         ConfigManager.Instance.GetTextureOnLine(camTexture_url, (texture) =>
         {
             rawImageCamPic.texture = texture;
+        });
+
+        string camTexture_url_1 = "file:///" + Application.dataPath + "/Config/camTexture_1.png";
+        ConfigManager.Instance.GetTextureOnLine(camTexture_url_1, (texture) =>
+        {
+            rawImageCamPic_1.texture = texture;
+        });
+        string camTexture_url_2 = "file:///" + Application.dataPath + "/Config/camTexture_2.png";
+        ConfigManager.Instance.GetTextureOnLine(camTexture_url_2, (texture) =>
+        {
+            rawImageCamPic_2.texture = texture;
+        });
+        string camTexture_url_3 = "file:///" + Application.dataPath + "/Config/camTexture_3.png";
+        ConfigManager.Instance.GetTextureOnLine(camTexture_url_3, (texture) =>
+        {
+            rawImageCamPic_3.texture = texture;
         });
     }
 }

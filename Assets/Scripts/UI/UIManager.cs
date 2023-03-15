@@ -42,6 +42,11 @@ public class UIManager
         ProjectInfo.Instance.SetProjectInfo();
     }
 
+    public void WeldInfoInit()
+    {
+        WeldInfo.Instance.SetWeldInfo();
+    }
+
     public void InitCameraMCBM(bool state)
     {
         mcbm.enabled = state;
